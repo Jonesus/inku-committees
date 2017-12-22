@@ -97,7 +97,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
   }
   elseif ($action == 'delete') {
     $delete_id = $_POST['ID'];
-    $title_fi = $_POST['title_fi'];
+    remove_from_chairs($delete_id);
     $query = "DELETE FROM Fillers WHERE ID=$delete_id;";
     $res = $wpdb->get_results($query);
     echo "<h2 style='color: red;'>Deleted field with ID $delete_id!</h2>";
