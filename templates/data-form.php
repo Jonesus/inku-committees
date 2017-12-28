@@ -33,8 +33,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
   }
   elseif ($action == 'delete') {
     $delete_id = $_POST['ID'];
-    $title_fi = $_POST['title_fi'];
-    $query = "DELETE FROM $table_name WHERE ID=$delete_id AND title_fi='$title_fi';";
+    $query = "DELETE FROM $table_name WHERE ID=$delete_id;";
     $res = $wpdb->get_results($query);
     echo "<h2 style='color: red;'>Deleted field with ID $delete_id!</h2>";
   }
