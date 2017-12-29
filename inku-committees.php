@@ -42,6 +42,13 @@ class Inku_Committees_Plugin {
       'manage_options',
       'filler-management',
       array($this, 'render_filler_page'));
+
+    add_menu_page(
+      __('Snapsi management','inku-committees'),
+      __('Snapsi management','inku-committees'),
+      'manage_options',
+      'snapsi-management',
+      array($this, 'render_snapsi_page'));
   }
 
   public function render_filler_page() {
@@ -54,6 +61,10 @@ class Inku_Committees_Plugin {
   
   public function render_position_page() {
     $this->render_page('data-form', array('table_name' => 'Positions'));
+  }
+
+  public function render_snapsi_page() {
+    $this->render_page('data-form', array('table_name' => 'Snapsi'));
   }
 
   private function render_page($template, $data) {
