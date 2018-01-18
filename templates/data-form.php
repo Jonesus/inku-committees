@@ -60,15 +60,16 @@ $results[] = $row
 
 ?>
 
+<link rel="stylesheet" href="<?php echo plugin_dir_url( __FILE__ ); ?>style.css">
 
 <h1><?php echo $table_name ?> management</h1>
 <h3>Please never change the ID!</h3>
 <div class="dataform">
   <div class="datarow">
     <?php foreach ( $columns as $col ) : ?>
-      <textarea name="<?php echo $col; ?>" class="data-column" style="display:inline;float:left;text-align:center;" readonly><?php echo $col; ?></textarea>
+      <textarea name="<?php echo $col; ?>" class="data-column" readonly><?php echo $col; ?></textarea>
     <?php endforeach; ?>
-  </div><br/><br/><br/>
+  </div><br/><br/><br/><br/>
 
   <?php foreach ( $results as $row_key => $row ) : ?>
   <div class="datarow">
@@ -77,13 +78,12 @@ $results[] = $row
         <textarea
           name="<?php echo $field_key; ?>"
           class="data-column"
-          style="display:inline;float:left;"
           <?php echo ($field_key == 'ID') ? 'readonly' : ''; ?>
         ><?php echo $field; ?></textarea>
       <?php endforeach; ?>
       <input type="submit" name="action" value="save" style="margin-left: 5px;" />
       <input type="submit" name="action" value="delete" style="margin-left: 5px;" />
     </form>
-  </div><br/>
+  </div><br/><br/>
   <?php endforeach; ?>
 </div>

@@ -102,6 +102,12 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
     $res = $wpdb->get_results($query);
     echo "<h2 style='color: red;'>Deleted field with ID $delete_id!</h2>";
   }
+} else if ( 'GET' == $_SERVER['REQUEST_METHOD'] ) {
+  if ( is_numeric($_GET['year']) ) {
+    $year = $_GET['year'];
+  } else {
+    $year = date('Y');
+  }
 }
 
 
@@ -118,7 +124,7 @@ $columns = Array(
 );
 
 // Get table
-$query =
+$query = $wpdb->prepare(
   "SELECT
       f.ID,
       c.title_fi AS committee_title_fi,
@@ -134,7 +140,8 @@ $query =
           ON f.position_ID=p.ID
       INNER JOIN Committees AS c
           ON f.committee_ID=c.ID
-  ";
+  WHERE f.year=%d;",
+  $year);
  
 $results = $wpdb->get_results($query, ARRAY_A);
 
@@ -158,31 +165,17 @@ $results[] = $row
 /*-----------------*/
 ?>
 
-<style>
-.dataform {
-  overflow-x: scroll;
-  width: 1650px;
-}
-
-.datarow {
-  flex-direction: row;
-}
-
-.data-column {
-  display: inline;
-  float: left;
-  text-align: center;
-}
-</style>
+<link rel="stylesheet" href="<?php echo plugin_dir_url( __FILE__ ); ?>style.css">
 
 <h1>Filler management</h1>
 <h3>Please never change the ID!</h3>
+<p>You can change the year by appending "&year=[number]" to the url and pressing enter.</p>
 <div class="dataform">
   <div class="datarow">
     <?php foreach ( $columns as $col ) : ?>
       <textarea name="<?php echo $col; ?>" class="data-column" readonly><?php echo $col; ?></textarea>
     <?php endforeach; ?>
-  </div><br/><br/><br/>
+  </div><br/><br/><br/><br/>
 
   <?php foreach ( $results as $row_key => $row ) : ?>
   <div class="datarow">
@@ -197,7 +190,7 @@ $results[] = $row
       <input type="submit" name="action" value="save" style="margin-left: 5px;" />
       <input type="submit" name="action" value="delete" style="margin-left: 5px;" />
     </form>
-  </div><br/>
+  </div><br/><br/>
   <?php endforeach; ?>
 </div>
 

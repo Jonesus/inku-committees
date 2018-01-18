@@ -1,0 +1,15 @@
+.dataform {
+  overflow-x: scroll;
+  min-width: 1900px;
+}
+
+.datarow {
+  flex-direction: row;
+}
+
+.data-column {
+  display: inline;
+  float: left;
+  text-align: center;
+}
+
