@@ -56,8 +56,8 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
     $picture_path = $_POST['picture_path'];
     $is_chairperson = $_POST['is_chairperson'];
 
-    $user_id_name = $wpdb->get_var("SELECT id FROM wp_users WHERE display_name='$display_name';");
-    $user_id_email = $wpdb->get_var("SELECT id FROM wp_users WHERE user_email='$user_email';");
+    $user_id_name = $wpdb->get_var("SELECT id FROM ".$wpdb->prefix."users WHERE display_name='$display_name';");
+    $user_id_email = $wpdb->get_var("SELECT id FROM ".$wpdb->prefix."users WHERE user_email='$user_email';");
     $position_id = $wpdb->get_var("SELECT ID FROM Positions WHERE title_fi='$position_title_fi';");
     $committee_id = $wpdb->get_var("SELECT ID FROM Committees WHERE title_fi='$committee_title_fi';");
 
@@ -134,7 +134,7 @@ $query = $wpdb->prepare(
       m.user_email,
       f.picture_path
   FROM Fillers AS f
-      INNER JOIN wp_users AS m
+      INNER JOIN ".$wpdb->prefix."users AS m
           ON f.member_ID=m.ID
       INNER JOIN Positions AS p
           ON f.position_ID=p.ID
